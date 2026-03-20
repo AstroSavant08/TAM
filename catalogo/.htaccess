@@ -1,0 +1,9 @@
+<IfModule mod_dir.c>
+    DirectoryIndex index.php index.html index.htm
+</IfModule>
+
+# Desactivar mod_rewrite para evitar conflictos
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+</IfModule>
+

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAM - Prueba del Sistema</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+        h1 {
+            color: #0d47a1;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .info-box {
+            background: #f5f5f5;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .credentials {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .credentials h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        .credentials p {
+            color: #856404;
+            margin: 5px 0;
+            font-weight: 600;
+            font-family: monospace;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        .button {
+            background: #0d47a1;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+            transition: all 0.3s;
+        }
+        .button:hover {
+            background: #0c3f8e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
+        }
+        .success {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+        .error {
+            color: #f44336;
+            font-weight: 600;
+        }
+        #testResult {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0d47a1;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 TAM - Prueba del Sistema</h1>
+        
+        <div class="info-box">
+            <strong>✓ Bienvenido a las pruebas de TAM</strong><br>
+            A continuación puedes verificar la conexión y probar el sistema.
+        </div>
+
+        <div class="credentials">
+            <h3>📝 Credenciales de Prueba</h3>
+            <p><strong>Usuario:</strong> acostam25</p>
+            <p><strong>Contraseña:</strong> acosta.2005</p>
+            <hr style="margin: 10px 0; border: none; border-top: 1px solid #cc9900;">
+            <p style="font-size: 12px; margin-top: 10px;">También puedes usar: test / test123</p>
+        </div>
+
+        <div class="test-section">
+            <h3>🔌 Prueba de Conexión</h3>
+            <p>Verifica si el servidor y la base de datos están conectados:</p>
+            <button class="button" onclick="testConnection()">Probar Conexión a BD</button>
+            <button class="button" onclick="testLoginBackend()">Probar Backend de Login</button>
+            <div id="testResult"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>🚀 Acciones Rápidas</h3>
+            <button class="button" onclick="window.location.href='../../login.html'">Ir al Login</button>
+            <button class="button" onclick="simulateLogin()">Simular Login Auto</button>
+            <button class="button" onclick="goToIndex()">Ir a Inicio</button>
+        </div>
+
+        <div class="test-section">
+            <h3>📋 Información del Sistema</h3>
+            <p><strong>URL Base:</strong> <code style="background: #f5f5f5; padding: 2px 6px;">http://localhost/proyecto_de_tam_acosta</code></p>
+            <p><strong>Estado:</strong> <span id="statusBadge" class="error">Verificando...</span></p>
+            <p style="font-size: 12px; color: #666; margin-top: 10px;">
+                Si todo funciona correctamente, ve al <strong>Login</strong> e ingresa con tus credenciales.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Probar conexión a la BD
+        function testConnection() {
+            const result = document.getElementById('testResult');
+            result.innerHTML = '<div class="loader"></div> Probando conexión...';
+            result.style.display = 'block';
+
+            fetch('backend/test.php')
+                .then(r => r.json())
+                .then(data => {
+                    result.innerHTML = `<span class="success">✓ ${data.message}</span><br><small>${JSON.stringify(data)}</small>`;
+                    updateStatus(true);
+                })
+                .catch(e => {
+                    result.innerHTML = `<span class="error">✗ Error: ${e.message}</span>`;
+                    updateStatus(false);
+                });
+        }
+
+        // Probar backend de login
+        function testLoginBackend() {
+            const result = document.getElementById('testResult');
+            result.innerHTML = '<div class="loader"></div> Probando backend...';
+            result.style.display = 'block';
+
+            fetch('backend/login_demo.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: 'test', password: 'test123' })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    result.innerHTML = `<span class="success">✓ Backend funcionando correctamente</span><br><small>Usuario test autenticado</small>`;
+                    updateStatus(true);
+                } else {
+                    result.innerHTML = `<span class="error">✗ ${data.message}</span>`;
+                }
+            })
+            .catch(e => {
+                result.innerHTML = `<span class="error">✗ Error: ${e.message}</span>`;
+                updateStatus(false);
+            });
+        }
+
+        // Simular login automático
+        function simulateLogin() {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', 'acostam25');
+            localStorage.setItem('userId', '2');
+            alert('Login simulado. Redirigiendo a inicio...');
+            window.location.href = 'index.html';
+        }
+
+        // Ir al inicio
+        function goToIndex() {
+            window.location.href = 'index.html';
+        }
+
+        // Actualizar estado
+        function updateStatus(ok) {
+            const badge = document.getElementById('statusBadge');
+            if (ok) {
+                badge.textContent = '✓ Sistema Operacional';
+                badge.className = 'success';
+            } else {
+                badge.textContent = '✗ Verificar conexión';
+                badge.className = 'error';
+            }
+        }
+
+        // Verificar al cargar
+        window.addEventListener('load', () => {
+            fetch('backend/test.php')
+                .then(r => r.json())
+                .then(data => updateStatus(true))
+                .catch(e => updateStatus(false));
+        });
+    </script>
+</body>
+</html>

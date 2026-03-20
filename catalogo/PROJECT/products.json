@@ -1,0 +1,83 @@
+
+[
+    {
+        "id": 1,
+        "name": "PlayStation 5",
+        "price": "$2.500.000",
+        "rating": 5,
+        "image": "https://via.placeholder.com/250/0d47a1/ffffff?text=PS5",
+        "category": "consolas"
+    },
+    {
+        "id": 2,
+        "name": "Xbox Series X",
+        "price": "$2.300.000",
+        "rating": 4,
+        "image": "https://via.placeholder.com/250/107c10/ffffff?text=Xbox+X",
+        "category": "consolas"
+    },
+    {
+        "id": 3,
+        "name": "Nintendo Switch",
+        "price": "$1.500.000",
+        "rating": 4,
+        "image": "https://via.placeholder.com/250/e60012/ffffff?text=Switch",
+        "category": "consolas"
+    },
+    {
+        "id": 4,
+        "name": "ASUS ROG Zephyrus G14",
+        "price": "$7.800.000",
+        "rating": 5,
+        "image": "https://via.placeholder.com/250/b0263a/ffffff?text=ROG+G14",
+        "category": "portatiles"
+    },
+    {
+        "id": 5,
+        "name": "MacBook Air M2",
+        "price": "$6.200.000",
+        "rating": 5,
+        "image": "https://via.placeholder.com/250/8e8e93/ffffff?text=MacBook+Air",
+        "category": "portatiles"
+    },
+    {
+        "id": 6,
+        "name": "Dell XPS 13",
+        "price": "$5.500.000",
+        "rating": 4,
+        "image": "https://via.placeholder.com/250/007db8/ffffff?text=XPS+13",
+        "category": "portatiles"
+    },
+    {
+        "id": 7,
+        "name": "iPhone 15 Pro",
+        "price": "$5.800.000",
+        "rating": 5,
+        "image": "https://via.placeholder.com/250/1d1d1f/ffffff?text=iPhone+15",
+        "category": "celulares"
+    },
+    {
+        "id": 8,
+        "name": "Samsung Galaxy S24 Ultra",
+        "price": "$6.000.000",
+        "rating": 5,
+        "image": "https://via.placeholder.com/250/272727/ffffff?text=S24+Ultra",
+        "category": "celulares"
+    },
+    {
+        "id": 9,
+        "name": "Google Pixel 8",
+        "price": "$4.500.000",
+        "rating": 4,
+        "image": "https://via.placeholder.com/250/4285f4/ffffff?text=Pixel+8",
+        "category": "celulares"
+    },
+    {
+        "id": 10,
+        "name": "Logitech MX Master 3S",
+        "price": "$450.000",
+        "rating": 5,
+        "image": "https://via.placeholder.com/250/000000/ffffff?text=MX+Master",
+        "category": "accesorios"
+    }
+]

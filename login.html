@@ -1,0 +1,248 @@
+<!-- e:\proyecto_de_tam_acosta\proyecto de tam acosta\acosta\login.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - TAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+    <div class="login-card">
+        <div class="login-header">
+            <img src="vistas_pedidos/uploads/logo.png" alt="TAM Logo" onerror="this.src='https://via.placeholder.com/120x50/0d47a1/ffffff?text=TAM'" style="max-height: 50px; background: #0d47a1; padding: 5px; border-radius: 4px;">
+        </div>
+        
+        <div class="login-tabs">
+            <div class="login-tab active" id="tabLogin" onclick="switchTab('login')">Iniciar Sesión</div>
+            <div class="login-tab" id="tabRegister" onclick="switchTab('register')">Registrarse</div>
+        </div>
+
+        <!-- Formulario de Login -->
+        <form id="loginForm" class="auth-form active">
+            <div class="form-group">
+                <label>Usuario</label>
+                <input type="text" id="loginUser" required placeholder="Ingresa tu usuario">
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="loginPass" required placeholder="Ingresa tu contraseña">
+            </div>
+            <button type="submit" class="btn-block">Ingresar</button>
+            <a href="forgot_password.html" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
+            <button type="button" class="btn-block guest-btn" onclick="enterAsGuest()">Entrar como invitado</button>
+            <p id="loginMessage" class="message error"></p>
+        </form>
+
+        <!-- Formulario de Registro -->
+        <form id="registerForm" class="auth-form">
+            <div class="form-group">
+                <label>Nombre Completo</label>
+                <input type="text" id="regNombre" required placeholder="Tu nombre completo">
+            </div>
+            <div class="form-group">
+                <label>Identificación</label>
+                <input type="number" id="regId" required placeholder="Cédula o ID">
+            </div>
+            <div class="form-group">
+                <label>Fecha de Nacimiento</label>
+                <input type="date" id="regFecha" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="regEmail" required placeholder="correo@ejemplo.com">
+            </div>
+            <div class="form-group">
+                <label>Nuevo Usuario</label>
+                <input type="text" id="regUser" required placeholder="Elige un usuario">
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="regPass" required placeholder="Elige una contraseña">
+            </div>
+            <button type="submit" class="btn-block">Registrarse</button>
+            <p id="regMessage" class="message success"></p>
+        </form>
+    </div>
+
+    <script>
+        // VERIFICACIÓN DE SERVIDOR: Detectar si se abre como archivo local
+        function showFileProtocolWarning() {
+            const msg = document.getElementById('loginMessage');
+            if (msg) {
+                msg.className = 'message error';
+                msg.textContent = 'ERROR: estás usando file://. Mueve el proyecto a htdocs y accede vía http://localhost/...';
+            } else {
+                alert("¡ERROR CRÍTICO!\n\nEstás abriendo el archivo directamente (file://).\nPHP y la Base de Datos NO funcionarán así.\n\nSOLUCIÓN:\n1. Mueve tu carpeta de proyecto dentro de 'htdocs' en XAMPP.\n2. Abre el navegador y entra a: http://localhost/tu_carpeta/login.html");
+            }
+        }
+        if (window.location.protocol === 'file:') {
+            showFileProtocolWarning();
+        }
+
+        // Verificar si ya está logueado en localStorage
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'index.html';
+            }
+        });
+
+        function switchTab(tab) {
+            document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.getElementById('tabLogin').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.getElementById('tabRegister').classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+            // Limpiar mensajes
+            document.getElementById('loginMessage').textContent = '';
+            document.getElementById('regMessage').textContent = '';
+        }
+
+        function enterAsGuest() {
+            localStorage.setItem('isLoggedIn', 'guest');
+            localStorage.setItem('userName', 'Invitado');
+            window.location.href = 'index.html';
+        }
+
+        // Lógica de Registro
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Recopilar todos los datos del formulario
+            const data = {
+                nombre: document.getElementById('regNombre').value.trim(),
+                identificacion: document.getElementById('regId').value.trim(),
+                fecha_nacimiento: document.getElementById('regFecha').value,
+                email: document.getElementById('regEmail').value.trim(),
+                username: document.getElementById('regUser').value.trim(),
+                password: document.getElementById('regPass').value.trim()
+            };
+
+            const msg = document.getElementById('regMessage');
+
+            if (!data.username || !data.password || !data.nombre || !data.identificacion) {
+                msg.className = 'message error';
+                msg.textContent = 'Por favor completa todos los campos.';
+                return;
+            }
+
+            // Enviar datos al backend PHP
+            fetch('backend/register_backend.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text()) // Obtener texto primero para depurar errores de PHP
+            .then(text => {
+                console.log('Respuesta cruda del servidor:', text);
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    console.error("Respuesta del servidor no es JSON: ", text);
+                    // incluir el texto en el mensaje de error también
+                    throw new Error("Error en el servidor: " + text);
+                }
+            })
+            .then(data => {
+                if (data.success) {
+                    msg.className = 'message success';
+                    msg.textContent = '¡Registro exitoso! Redirigiendo...';
+                    // guardar sesión automáticamente
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userName', data.username || data.nombre || 'Usuario');
+                    setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+                } else {
+                    msg.className = 'message error';
+                    msg.textContent = data.message;
+                }
+            })
+            .catch(error => {
+                console.error('Registro fetch error:', error);
+                msg.className = 'message error';
+                let text = error.message || 'Error de conexión o servidor.';
+                if (window.location.protocol === 'file:') {
+                    text += ' (asegúrate de usar http://localhost)';
+                }
+                msg.textContent = text;
+            });
+        });
+
+        // Lógica de Login
+
+        // Lógica de Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            const msg = document.getElementById('loginMessage');
+            const btn = this.querySelector('button[type="submit"]');
+            
+            if (!user || !pass) {
+                msg.className = 'message error';
+                msg.textContent = 'Por favor completa todos los campos';
+                return;
+            }
+            
+            // Mostrar estado de carga
+            btn.disabled = true;
+            btn.textContent = 'Iniciando sesión...';
+            msg.textContent = '';
+
+            // Enviar solicitud de login (usar backend real)
+            fetch('backend/login_backend.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: user, password: pass })
+            })
+            .then(response => response.text())
+            .then(text => {
+                console.log('Login raw response:', text);
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    console.error("Respuesta del servidor no es JSON:", text);
+                    throw new Error("La respuesta del servidor no es válida: " + text);
+                }
+            })
+            .then(data => {
+                if (data.success) {
+                    msg.className = 'message success';
+                    msg.textContent = '¡Bienvenido! Redirigiendo...';
+                    
+                    // Guardar en localStorage
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userName', user);
+                    localStorage.setItem('userId', data.id);
+                    
+                    // Redirigir tras 1 segundo
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                } else {
+                    msg.className = 'message error';
+                    msg.textContent = data.message || 'Error de autenticación';
+                    btn.disabled = false;
+                    btn.textContent = 'Ingresar';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                msg.className = 'message error';
+                let text = 'Error: ' + (error.message || 'No se pudo conectar con el servidor');
+                if (window.location.protocol === 'file:') {
+                    text += ' (asegúrate de usar http://localhost)';
+                }
+                msg.textContent = text;
+                btn.disabled = false;
+                btn.textContent = 'Ingresar';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía del Proyecto TAM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: #0d47a1;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        section h2 {
+            color: #0d47a1;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        .flow-diagram {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .structure-tree {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+        .urls-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .urls-table thead {
+            background: #0d47a1;
+            color: white;
+        }
+        .urls-table th, .urls-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .urls-table tbody tr:hover {
+            background: #f5f5f5;
+        }
+        .urls-table code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .highlight {
+            background: #fff9e6;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .highlight strong {
+            color: #ff9800;
+        }
+        .success {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #2e7d32;
+        }
+        .error {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #c62828;
+        }
+        .step {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+        .step strong {
+            color: #0d47a1;
+        }
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Guía del Proyecto TAM</h1>
+            <p>Tienda Online - Sistema de Organización</p>
+        </header>
+
+        <div class="content">
+            <!-- SECCIÓN 1: ESTRUCTURA -->
+            <section>
+                <h2>🗂️ Estructura del Proyecto</h2>
+                <div class="structure-tree">
+<pre>academia/
+│
+├── <strong>index.php</strong> ⭐ PUNTO DE ENTRADA PRINCIPAL
+├── index.html (incluida por index.php)
+├── login.html
+├── carrito.html
+├── contacto.html
+│
+├── backend/
+│   ├── conexion.php (BD)
+│   ├── login_backend.php
+│   ├── register_backend.php
+│   ├── carrito.php
+│   └── guardar_rewiew.php
+│
+├── catalogo/
+│   └── PROJECT/
+│       ├── catalogo.php ✅ VERSIÓN FUNCIONAL
+│       ├── catalogo.js
+│       └── catalogo.css
+│
+├── proyecto/
+│   ├── backend/ (APIs)
+│   └── frontend/ (Páginas)
+│
+├── css/ (Hojas de estilo)
+├── js/ (Scripts)
+├── imagenes/ (Recursos)
+├── vistas_pedidos/ (Uploads)
+│
+└── .htaccess (Configuración Apache)</pre>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: CÓMO FUNCIONA -->
+            <section>
+                <h2>⚙️ Cómo Funciona el Sistema de Rutas</h2>
+                
+                <div class="highlight">
+                    <strong>Concepto clave:</strong> Un único archivo <code>index.php</code> maneja todas las rutas del proyecto.
+                </div>
+
+                <div class="flow-diagram">
+<pre>1. Usuario abre: http://localhost/academia/?page=catalogo
+
+2. Apache recibe la solicitud
+   ↓
+3. .htaccess redirige a index.php
+   ↓
+4. index.php lee: $_GET['page'] = 'catalogo'
+   ↓
+5. Busca en el mapeo de páginas:
+   $pages['catalogo'] = 'catalogo/PROJECT/catalogo.php'
+   ↓
+6. Incluye el archivo y muestra el contenido
+   ↓
+7. Usuario ve: Catálogo funcional con BD</pre>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: URLS -->
+            <section>
+                <h2>🔗 URLs Disponibles</h2>
+                <table class="urls-table">
+                    <thead>
+                        <tr>
+                            <th>URL</th>
+                            <th>Página</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>http://localhost/academia/</code></td>
+                            <td>Inicio</td>
+                            <td>Página principal de la tienda</td>
+                        </tr>
+                        <tr>
+                            <td><code>?page=catalogo</code></td>
+                            <td>Catálogo</td>
+                            <td>Listado de productos desde BD</td>
+                        </tr>
+                        <tr>
+                            <td><code>?page=carrito</code></td>
+                            <td>Carrito</td>
+                            <td>Carrito de compras</td>
+                        </tr>
+                        <tr>
+                            <td><code>?page=login</code></td>
+                            <td>Login</td>
+                            <td>Inicio de sesión y registro</td>
+                        </tr>
+                        <tr>
+                            <td><code>?page=contacto</code></td>
+                            <td>Contacto</td>
+                            <td>Formulario de contacto</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- SECCIÓN 4: CONFIGURACIÓN -->
+            <section>
+                <h2>⚡ Configuración de Apache (.htaccess)</h2>
+                <div class="flow-diagram">
+<pre>&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteBase /academia/
+    
+    # Permitir archivos y carpetas reales
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Todo lo demás → index.php
+    RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
+&lt;/IfModule&gt;</pre>
+                </div>
+                <p style="margin-top: 15px; color: #666;">
+                    <i>Esto permite que URLs limpias se traduzcan a parámetros GET.</i>
+                </p>
+            </section>
+
+            <!-- SECCIÓN 5: INICIO RÁPIDO -->
+            <section>
+                <h2>🚀 Inicio Rápido</h2>
+                
+                <div class="step">
+                    <strong>Paso 1: Inicia XAMPP</strong><br>
+                    Abre XAMPP Control Panel y haz clic en "Start" para Apache y MySQL.
+                </div>
+
+                <div class="step">
+                    <strong>Paso 2: Abre el navegador</strong><br>
+                    Ve a: <code>http://localhost/academia/</code>
+                </div>
+
+                <div class="step">
+                    <strong>Paso 3: Explora el proyecto</strong><br>
+                    Haz clic en los enlaces del menú para navegar por las diferentes páginas.
+                </div>
+
+                <div class="success">
+                    ✅ Si todo está bien, verás la tienda funcional sin errores 404.
+                </div>
+            </section>
+
+            <!-- SECCIÓN 6: PROBLEMAS Y SOLUCIONES -->
+            <section>
+                <h2>🔧 Solución de Problemas</h2>
+
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #f44336; margin-bottom: 10px;">❌ Error: "Not Found"</h4>
+                    <div class="error">
+                        <strong>Causa:</strong> Apache no encuentra el archivo o la reescritura de URLs falla<br>
+                        <strong>Solución:</strong><br>
+                        1. Verifica que `.htaccess` esté en la raíz de `academia/`<br>
+                        2. Asegúrate que `mod_rewrite` está habilitado en Apache<br>
+                        3. Comprueba que `index.php` existe y es legible
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #f44336; margin-bottom: 10px;">❌ Error: "Conexión a BD fallida"</h4>
+                    <div class="error">
+                        <strong>Causa:</strong> MySQL no inició o credenciales incorrectas<br>
+                        <strong>Solución:</strong><br>
+                        1. Inicia MySQL en XAMPP<br>
+                        2. Verifica credenciales en `backend/conexion.php`<br>
+                        3. Asegúrate que la BD `proyectotam` existe
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="color: #f44336; margin-bottom: 10px;">❌ CSS/JS no se cargan</h4>
+                    <div class="error">
+                        <strong>Causa:</strong> Rutas relativas incorrectas<br>
+                        <strong>Solución:</strong><br>
+                        1. Usa rutas relativas desde la raíz: `css/style.css`<br>
+                        2. O usa rutas absolutas con BASE_URL<br>
+                        3. Verifica que los archivos existan en las carpetas correctas
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 7: ARCHIVOS CLAVE -->
+            <section>
+                <h2>📄 Archivos Clave</h2>
+                <table class="urls-table">
+                    <thead>
+                        <tr>
+                            <th>Archivo</th>
+                            <th>Función</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>index.php</code></td>
+                            <td><strong>PRINCIPAL:</strong> Enrutador central, maneja todas las solicitudes</td>
+                        </tr>
+                        <tr>
+                            <td><code>.htaccess</code></td>
+                            <td>Configuración Apache: reescribe URLs al index.php</td>
+                        </tr>
+                        <tr>
+                            <td><code>backend/conexion.php</code></td>
+                            <td>Conexión a MySQL (usada por todas las páginas)</td>
+                        </tr>
+                        <tr>
+                            <td><code>catalogo/PROJECT/catalogo.php</code></td>
+                            <td>Catálogo funcional que obtiene productos de BD</td>
+                        </tr>
+                        <tr>
+                            <td><code>ESTRUCTURA.md</code></td>
+                            <td>Documentación completa del proyecto (en Markdown)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- SECCIÓN 8: QUÉ SE CORRIGIÓ -->
+            <section>
+                <h2>✅ Lo que se Corrigió</h2>
+                
+                <div class="success">
+                    <strong>Problema 1:</strong> Múltiples archivos `index.php` e `index.html`<br>
+                    <strong>Solución:</strong> Un único `index.php` como punto de entrada centralizado
+                </div>
+
+                <div class="success">
+                    <strong>Problema 2:</strong> Rutas rotas en HTML y PHP<br>
+                    <strong>Solución:</strong> Uso de rutas relativas consistentes y BASE_URL
+                </div>
+
+                <div class="success">
+                    <strong>Problema 3:</strong> Apache no sabía cómo enrutar solicitudes<br>
+                    <strong>Solución:</strong> `.htaccess` configurado correctamente con `mod_rewrite`
+                </div>
+
+                <div class="success">
+                    <strong>Problema 4:</strong> Error 404 en páginas del catálogo<br>
+                    <strong>Solución:</strong> `catalogo.php` (versión funcional) incluida y accesible
+                </div>
+
+                <div class="success">
+                    <strong>Problema 5:</strong> Estructura confusa y desorganizada<br>
+                    <strong>Solución:</strong> Estructura clara con carpetas específicas y documentación
+                </div>
+            </section>
+
+        </div>
+
+        <footer>
+            <p>📚 Proyecto TAM - Tienda Online (Academia)</p>
+            <p>Última actualización: 10 de marzo de 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

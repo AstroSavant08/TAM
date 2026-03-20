@@ -1,0 +1,11 @@
+# Archivo .htaccess simplificado para sitio estático
+# No se realiza reescritura; Apache servirá los archivos directamente
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+</IfModule>
+
+# Se conserva el control de acceso básico si se desea
+<FilesMatch "\.(jpg|jpeg|png|gif|css|js|svg|woff|woff2|ttf|eot)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>

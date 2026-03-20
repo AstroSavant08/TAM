@@ -1,0 +1,143 @@
+
+/* HEADER  CSS ()*/
+
+:root {
+    --primary-blue: #0d47a1;
+    --secondary-blue: #1976D2;
+    --text-color: #333;
+}
+
+/* Reset básico */
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
+}
+
+/* HEADER */
+.header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.header .logo {
+    font-weight: 700;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+}
+.header .logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+.header .menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 4px;
+    cursor: pointer;
+}
+.header .menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.header .search-bar {
+    flex-grow: 1;
+    max-width: 500px;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+}
+.header .search-bar input {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: var(--text-color);
+}
+.header .search-bar button {
+    background-color: var(--secondary-red);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header .user-icons {
+    display: flex;
+    gap: 20px;
+}
+.header .user-icons svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+/* FOOTER */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px; /* opcional, si quieres separación cuando hay contenido */
+    background-color: var(--primary-blue);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9em;
+}
+body {
+    padding-bottom: 60px; /* espacio para que el contenido no se esconda detrás del footer */
+}
+
+
+
+/* RESPONSIVE HEADER */
+@media (max-width: 768px) {
+    .header {
+        justify-content: space-between;
+        padding: 10px;
+    }
+    .header .logo img {
+        height: 30px;
+    }
+    .header .menu {
+        display: none;
+    }
+    .header .menu-toggle {
+        display: block;
+        order: -1;
+    }
+    .header .search-bar {
+        order: 3;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .header .user-icons {
+        order: 2;
+        gap: 10px;
+    }
+}

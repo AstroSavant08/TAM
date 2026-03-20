@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Prueba - TAM</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Roboto, Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { color: #0d47a1; font-size: 28px; margin-bottom: 20px; }
+        h2 { color: #1976d2; font-size: 20px; margin: 15px 0 10px 0; border-bottom: 2px solid #1976d2; padding-bottom: 5px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .test-box {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+        }
+        .test-box h3 { color: #333; margin: 10px 0; font-size: 16px; }
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        button {
+            background: #0d47a1;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover { background: #1565c0; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th { background: #0d47a1; color: white; font-weight: 600; }
+        tr:hover { background: #f5f5f5; }
+        .code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 12px; }
+        .status {
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status.success { background: #28a745; color: white; }
+        .status.error { background: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Dashboard de Prueba - TAM</h1>
+
+        <div class="card">
+            <h2>📋 Usuarios Registrados en la Base de Datos</h2>
+            <div id="usersContainer" style="overflow-x: auto;">
+                <p style="color: #666;">Cargando usuarios...</p>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- PRUEBA 1: LOGIN CON USUARIO EXISTENTE -->
+            <div class="card test-box">
+                <h3>🔐 Prueba de Login</h3>
+                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">Intenta ingresar con un usuario existente</p>
+                <input type="text" id="loginUser" placeholder="Usuario (ej: acostam25)" value="acostam25">
+                <input type="password" id="loginPass" placeholder="Contraseña" value="acosta.2005">
+                <button onclick="testLogin()">🔓 Probar Login</button>
+                <div id="loginResult"></div>
+            </div>
+
+            <!-- PRUEBA 2: REGISTRO DE NUEVO USUARIO -->
+            <div class="card test-box">
+                <h3>✍️ Prueba de Registro</h3>
+                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">Crea un nuevo usuario automáticamente</p>
+                <input type="text" id="regNombre" placeholder="Nombre completo" value="Usuario Test">
+                <input type="text" id="regId" placeholder="Identificación" value="">
+                <input type="email" id="regEmail" placeholder="Email" value="">
+                <input type="text" id="regUser" placeholder="Usuario" value="">
+                <input type="password" id="regPass" placeholder="Contraseña" value="">
+                <button onclick="testRegister()">✅ Probar Registro</button>
+                <div id="regResult"></div>
+            </div>
+
+            <!-- PRUEBA 3: LOGIN FALLIDO (USUARIO INEXISTENTE) -->
+            <div class="card test-box">
+                <h3>❌ Prueba de Login Fallido</h3>
+                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">Intenta ingresar con usuario inexistente</p>
+                <input type="text" id="failUser" placeholder="Usuario" value="usuariofalso123">
+                <input type="password" id="failPass" placeholder="Contraseña" value="123456">
+                <button onclick="testLoginFail()">❌ Probar Error</button>
+                <div id="failResult"></div>
+            </div>
+
+            <!-- PRUEBA 4: GENERADOR DE CREDENCIALES -->
+            <div class="card test-box">
+                <h3>🎲 Generar Credenciales</h3>
+                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">Genera automáticamente datos únicos</p>
+                <button onclick="generateCredentials()">🔄 Generar Datos</button>
+                <div id="generatedCreds"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📊 Resumen</h2>
+            <div id="summary" style="color: #666;">
+                <p>Los sistemas de login y registro están funcionando correctamente.</p>
+                <p><strong>Acceso a la plataforma:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><a href="/academia/login.html" style="color: #0d47a1; text-decoration: none;">→ Ir a Login/Registro</a></li>
+                    <li><a href="/academia/index.html" style="color: #0d47a1; text-decoration: none;">→ Ir a Inicio</a></li>
+                    <li><a href="/academia/?page=catalogo" style="color: #0d47a1; text-decoration: none;">→ Ver Catálogo</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cargar usuarios al iniciar
+        window.addEventListener('load', async () => {
+            try {
+                const res = await fetch('/academia/get_users.php');
+                const data = await res.json();
+                
+                if (data.success) {
+                    let html = '<table><tr><th>ID</th><th>Nombre</th><th>Usuario</th><th>Email</th><th>Estado</th></tr>';
+                    data.users.forEach(u => {
+                        html += `<tr>
+                            <td>${u.id}</td>
+                            <td>${u.nombre}</td>
+                            <td><span class="code">${u.user_name}</span></td>
+                            <td>${u.email}</td>
+                            <td><span class="status success">✅ Activo</span></td>
+                        </tr>`;
+                    });
+                    html += '</table>';
+                    document.getElementById('usersContainer').innerHTML = html;
+                }
+            } catch (err) {
+                document.getElementById('usersContainer').innerHTML = 
+                    `<div class="message error">❌ Error al cargar usuarios: ${err.message}</div>`;
+            }
+        });
+
+        function showMessage(id, msg, type) {
+            document.getElementById(id).innerHTML = `<div class="message ${type}">${msg}</div>`;
+        }
+
+        async function testLogin() {
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            
+            if (!user || !pass) {
+                showMessage('loginResult', '❌ Completa ambos campos', 'error');
+                return;
+            }
+
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = '⏳ Probando...';
+
+            try {
+                const res = await fetch('/academia/backend/login_backend.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: user, password: pass })
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    showMessage('loginResult', `✅ <strong>LOGIN EXITOSO</strong><br>Usuario: ${data.username}<br>ID: ${data.id}`, 'success');
+                } else {
+                    showMessage('loginResult', `❌ ${data.message}`, 'error');
+                }
+            } catch (err) {
+                showMessage('loginResult', `❌ Error: ${err.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🔓 Probar Login';
+            }
+        }
+
+        function generateCredentials() {
+            const timestamp = Date.now();
+            const usuario = 'user' + timestamp.toString().slice(-6);
+            const email = 'test' + timestamp + '@test.com';
+            const id = '999' + timestamp.toString().slice(-7);
+            const pass = 'test123456';
+
+            document.getElementById('regNombre').value = 'Test User';
+            document.getElementById('regId').value = id;
+            document.getElementById('regEmail').value = email;
+            document.getElementById('regUser').value = usuario;
+            document.getElementById('regPass').value = pass;
+
+            showMessage('generatedCreds', 
+                `✅ Datos generados:<br>
+                Usuario: <span class="code">${usuario}</span><br>
+                Email: <span class="code">${email}</span><br>
+                ID: <span class="code">${id}</span>`, 
+                'info');
+        }
+
+        async function testRegister() {
+            const nombre = document.getElementById('regNombre').value.trim();
+            const identificacion = document.getElementById('regId').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const username = document.getElementById('regUser').value.trim();
+            const password = document.getElementById('regPass').value.trim();
+
+            if (!nombre || !identificacion || !email || !username || !password) {
+                showMessage('regResult', '❌ Completa todos los campos', 'error');
+                return;
+            }
+
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = '⏳ Registrando...';
+
+            try {
+                const res = await fetch('/academia/backend/register_backend.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, identificacion, email, username, password })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showMessage('regResult', `✅ <strong>REGISTRO EXITOSO</strong><br>Usuario: ${username}<br>ID: ${data.id}`, 'success');
+                } else {
+                    showMessage('regResult', `❌ ${data.message}`, 'error');
+                }
+            } catch (err) {
+                showMessage('regResult', `❌ Error: ${err.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '✅ Probar Registro';
+            }
+        }
+
+        async function testLoginFail() {
+            const user = document.getElementById('failUser').value.trim();
+            const pass = document.getElementById('failPass').value.trim();
+
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = '⏳ Probando...';
+
+            try {
+                const res = await fetch('/academia/backend/login_backend.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: user, password: pass })
+                });
+                const data = await res.json();
+
+                showMessage('failResult', `${data.success ? '✅' : '❌'} ${data.message}`, data.success ? 'success' : 'info');
+            } catch (err) {
+                showMessage('failResult', `❌ Error: ${err.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '❌ Probar Error';
+            }
+        }
+    </script>
+</body>
+</html>
