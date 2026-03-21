@@ -11,7 +11,9 @@
     
     <!-- CSS externo -->
 <link rel="stylesheet" href="assets/css/main.css">
-<link rel="stylesheet" href="assets/css/header.css">    
+<link rel="stylesheet" href="assets/css/header.css"> 
+<link rel="stylesheet" href="/assets/pages/carrito.css">
+
     
 </head>
 <body>
@@ -105,61 +107,78 @@
             &copy; 2026 TAM · Todos los derechos reservados
         </div>
     </footer>
-
-    <!-- Modal de Checkout -->
-    <div id="checkout-modal" class="checkout-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
-        <div class="checkout-modal-content" style="background: white; border-radius: 12px; padding: 30px; max-width: 500px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.2); position: relative;">
-            <button id="close-checkout-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 28px; cursor: pointer; color: #666;">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="checkout-modal-header" style="text-align: center; margin-bottom: 30px;">
-                <h3 style="color: #4caf50; margin: 0;"><i class="fas fa-check-circle"></i> ¡Compra Exitosa!</h3>
-            </div>
-            
-            <div class="checkout-modal-body" style="text-align: center;">
-                <i class="fas fa-check-circle" style="font-size: 60px; color: #4caf50; margin-bottom: 20px;"></i>
-                <h2 style="color: #333; margin: 10px 0;">¡Gracias por tu compra!</h2>
-                <p style="color: #666; margin-bottom: 30px;">Tu pedido ha sido procesado exitosamente. Recibirás un correo con los detalles de tu compra.</p>
-                
-                <div class="order-details" style="background: #f9f9f9; padding: 20px; border-radius: 8px; text-align: left; margin-bottom: 20px;">
-                    <p style="margin: 10px 0;"><strong>Número de pedido:</strong> #<span id="order-number">001</span></p>
-                    <p style="margin: 10px 0;"><strong>Subtotal:</strong> <span id="order-subtotal">$0</span></p>
-                    <p style="margin: 10px 0;"><strong>Envío:</strong> <span id="order-shipping">Gratis</span></p>
-                    <p style="margin: 10px 0; border-top: 2px solid #ddd; padding-top: 10px;"><strong>Total pagado:</strong> <span id="order-total" style="color: #f44336; font-size: 1.3rem; font-weight: 700;">$0</span></p>
-                </div>
-                
-                <button id="continue-shopping-checkout" class="apply-filters-btn" style="width: 100%; padding: 12px 20px; background: #0d47a1; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
-                    <i class="fas fa-shopping-bag"></i> Continuar Comprando
-                </button>
-            </div>
+<!-- MODAL DE CHECKOUT - Confirmación de compra exitosa -->
+<div id="checkout-modal" style="display: none;">
+    <div class="checkout-modal-content">
+        <button id="close-checkout-modal" class="close-checkout-modal">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="checkout-modal-header">
+            <h3>
+                <i class="fas fa-check-circle"></i> 
+                ¡Compra Exitosa!
+            </h3>
         </div>
-    </div>
-
-    <!-- Modal de Pago -->
-    <div id="payment-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 999; flex-direction: column; gap: 20px;">
-        <div style="background: white; border-radius: 12px; padding: 30px; max-width: 500px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
-            <h2 style="color: #0d47a1; text-align: center; margin-top: 0;">Selecciona Método de Pago</h2>
+        
+        <div class="checkout-modal-body">
+            <i class="fas fa-check-circle"></i>
             
-            <div style="display: flex; flex-direction: column; gap: 15px; margin: 30px 0;">
-                <button id="mercadopago-btn" style="padding: 15px 20px; background: #3483FA; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s;">
-                    <i class="fas fa-wallet"></i> Pagar con MercadoPago
-                </button>
-                
-                <button id="pse-btn" style="padding: 15px 20px; background: #4CAF50; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s;">
-                    <i class="fas fa-university"></i> Pagar por PSE
-                </button>
-                
-                <button id="card-btn" style="padding: 15px 20px; background: #FF6B6B; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s;">
-                    <i class="fas fa-credit-card"></i> Pagar con Tarjeta
-                </button>
+            <h2>¡Gracias por tu compra!</h2>
+            
+            <p>Tu pedido ha sido procesado exitosamente. Recibirás un correo con los detalles de tu compra.</p>
+            
+            <div class="order-details">
+                <p>
+                    <strong>Número de pedido:</strong> 
+                    #<span id="order-number">001</span>
+                </p>
+                <p>
+                    <strong>Subtotal:</strong> 
+                    <span id="order-subtotal">$0</span>
+                </p>
+                <p>
+                    <strong>Envío:</strong> 
+                    <span id="order-shipping">Gratis</span>
+                </p>
+                <p>
+                    <strong>Total pagado:</strong> 
+                    <span id="order-total" class="order-total">$0</span>
+                </p>
             </div>
             
-            <button id="cancel-payment" style="width: 100%; padding: 12px 20px; background: #f0f0f0; color: #666; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
-                Cancelar
+            <button id="continue-shopping-checkout" class="continue-shopping-checkout">
+                <i class="fas fa-shopping-bag"></i> 
+                Continuar Comprando
             </button>
         </div>
     </div>
+</div>
+
+ <!-- MODAL DE PAGO - Versión limpia sin estilos inline -->
+<div id="payment-modal" style="display: none;">
+    <div class="payment-modal-content">
+        <h2>Selecciona Método de Pago</h2>
+        
+        <div class="payment-buttons">
+            <button id="mercadopago-btn" class="payment-btn mercadopago">
+                <i class="fas fa-wallet"></i> Pagar con MercadoPago
+            </button>
+            
+            <button id="pse-btn" class="payment-btn pse">
+                <i class="fas fa-university"></i> Pagar por PSE
+            </button>
+            
+            <button id="card-btn" class="payment-btn card">
+                <i class="fas fa-credit-card"></i> Pagar con Tarjeta
+            </button>
+        </div>
+        
+        <button id="cancel-payment" class="cancel-payment">
+            Cancelar
+        </button>
+    </div>
+</div>
 
     </footer>
 
@@ -167,12 +186,12 @@
         // ============================================
         // CARRITO INDEPENDIENTE
         // ============================================
-        // Si el usuario está en modo invitado o no ha iniciado sesión, redirigir o informar
-        const loginState = localStorage.getItem('isLoggedIn');
-        if (loginState === 'guest' || loginState !== 'true') {
-            alert('Debe iniciar sesión con una cuenta para acceder al carrito.');
-            window.location.href = 'login.html';
-        }
+       // Si el usuario está en modo invitado o no ha iniciado sesión, redirigir o informar
+const loginState = localStorage.getItem('isLoggedIn');
+    if (loginState === 'guest' || loginState !== 'true') {
+    alert('Debe iniciar sesión con una cuenta para acceder al carrito.');
+    window.location.href = 'login.html';
+}
         
         // toggle menú con categorías (para este archivo también)
         const carritoBtns = [];
