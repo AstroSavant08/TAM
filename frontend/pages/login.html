@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - TAM</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body class="login-body">
     <div class="login-card">
         <div class="login-header">
-            <img src="vistas_pedidos/uploads/logo.png" alt="TAM Logo" onerror="this.src='https://via.placeholder.com/120x50/0d47a1/ffffff?text=TAM'" style="max-height: 50px; background: #0d47a1; padding: 5px; border-radius: 4px;">
+            <img src="../../vistas_pedidos/uploads/logo.png" alt="TAM Logo" onerror="this.src='https://via.placeholder.com/120x50/0d47a1/ffffff?text=TAM'" style="max-height: 50px; background: #0d47a1; padding: 5px; border-radius: 4px;">
         </div>
         
         <div class="login-tabs">
@@ -133,7 +133,7 @@
             }
 
             // Enviar datos al backend PHP
-            fetch('backend/register_backend.php', {
+            fetch('../../backend/register_backend.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
@@ -195,7 +195,7 @@
             msg.textContent = '';
 
             // Enviar solicitud de login (usar backend real)
-            fetch('backend/login_backend.php', {
+            fetch('../../backend/login_backend.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: user, password: pass })
