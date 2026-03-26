@@ -1,0 +1,445 @@
+
+
+/* ===== 1. CONTENEDOR PRINCIPAL ===== */
+.main-container {
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.page-title {
+    color: var(--primary-blue);
+    font-size: 2rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-title i {
+    color: var(--secondary-red);
+}
+
+/* ===== 2. BOTONES DE ACCIÓN ===== */
+.comparison-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+/* ===== 3. PANEL DE COMPARACIÓN ===== */
+.comparison-panel {
+    background: white;
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-xl);
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-hover);
+    border: 1px solid var(--primary-blue);
+}
+
+.comparison-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--light-gray);
+}
+
+.comparison-header h2 {
+    color: var(--primary-blue);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.comparison-count {
+    background: var(--primary-blue);
+    color: white;
+    padding: 5px 15px;
+    border-radius: var(--border-radius-pill);
+    font-weight: 700;
+}
+
+/* ===== 4. TABLA DE COMPARACIÓN ===== */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.comparison-table th {
+    background: var(--primary-blue);
+    color: white;
+    padding: var(--spacing-md);
+    font-weight: 700;
+    text-align: left;
+    border: 1px solid var(--primary-blue-dark);
+}
+
+.comparison-table th:first-child {
+    width: 180px;
+}
+
+.comparison-table td {
+    padding: var(--spacing-md);
+    border: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+.comparison-table .feature-name {
+    font-weight: 700;
+    color: var(--primary-blue);
+    background: var(--light-gray);
+}
+
+.product-image-cell {
+    text-align: center;
+}
+
+.product-image-cell img {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: contain;
+    border-radius: var(--border-radius-lg);
+    background-color: #f0f0f0;
+    padding: var(--spacing-sm);
+}
+
+/* ===== 5. DESTACADO DEL MEJOR PRODUCTO ===== */
+.winner-highlight {
+    background: rgba(76, 175, 80, 0.1);
+    border: 2px solid #4CAF50;
+}
+
+.winner-badge {
+    background: var(--accent-green);
+    color: white;
+    padding: 5px 15px;
+    border-radius: var(--border-radius-pill);
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.winner-banner {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-green-dark) 100%);
+    color: white;
+    border-radius: var(--border-radius-xl);
+    text-align: center;
+}
+
+.winner-banner .winner-price {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+/* ===== 6. PRECIOS ===== */
+.price-container {
+    margin-bottom: 10px;
+}
+
+.current-price {
+    color: var(--secondary-red);
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.old-price {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 1rem;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.discount-badge {
+    background: var(--secondary-red);
+    color: white;
+    padding: 3px 8px;
+    border-radius: var(--border-radius-pill);
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.best-price {
+    color: var(--accent-green-dark);
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+/* ===== 7. DESCRIPCIÓN Y CATEGORÍA ===== */
+.description-text {
+    line-height: 1.6;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.category-tag {
+    background: var(--light-gray);
+    color: var(--primary-blue);
+    padding: 5px 12px;
+    border-radius: var(--border-radius-pill);
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* ===== 8. BOTÓN ELIMINAR EN TABLA ===== */
+.remove-table-btn {
+    background: var(--secondary-red);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all var(--transition-normal);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.remove-table-btn:hover {
+    background: var(--secondary-red-dark);
+    transform: scale(1.05);
+}
+
+/* ===== 9. ESTADO VACÍO ===== */
+.empty-comparison {
+    text-align: center;
+    padding: 50px;
+    background: var(--light-gray);
+    border-radius: var(--border-radius-xl);
+}
+
+.empty-comparison i {
+    font-size: 4rem;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+.empty-comparison p {
+    margin: 10px 0;
+    color: var(--text-color);
+}
+
+.empty-comparison small {
+    color: var(--text-lighter);
+}
+
+/* ===== 10. SECCIÓN DE PRODUCTOS DISPONIBLES ===== */
+.products-section {
+    background: white;
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.section-header h3 {
+    color: var(--primary-blue);
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+/* ===== 11. FILTROS (usando estilos de main.css) ===== */
+.filter-buttons {
+    gap: 8px;
+}
+
+/* ===== 12. GRID DE PRODUCTOS ===== */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-xl);
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--primary-blue);
+    color: white;
+    padding: 5px 10px;
+    border-radius: var(--border-radius-pill);
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 1;
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: var(--light-gray);
+    padding: 15px;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-title {
+    color: var(--primary-blue);
+    font-size: 1rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+    min-height: 40px;
+}
+
+.product-category {
+    color: var(--text-lighter);
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.product-price-info {
+    color: var(--secondary-red);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* ===== 13. BOTÓN AGREGAR A COMPARACIÓN ===== */
+.add-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all var(--transition-normal);
+}
+
+.add-btn:hover:not(:disabled) {
+    background: var(--primary-blue-dark);
+    transform: translateY(-2px);
+}
+
+.add-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.add-btn.in-comparison {
+    background: var(--accent-green);
+}
+
+/* ===== 14. TOAST NOTIFICACIONES ===== */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary-blue);
+    color: white;
+    padding: 15px 25px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-hover);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    z-index: var(--z-toast);
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+.toast.success {
+    background: var(--accent-green);
+}
+
+.toast.error {
+    background: var(--secondary-red);
+}
+
+/* ===== 15. RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .main-container {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+    
+    .comparison-table th:first-child {
+        width: 120px;
+    }
+    
+    .product-image-cell img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+        padding: 10px;
+    }
+    
+    .winner-banner .winner-price {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .comparison-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .comparison-table th:first-child {
+        position: sticky;
+        left: 0;
+        background: var(--primary-blue);
+        z-index: 1;
+    }
+    
+    .comparison-table td:first-child {
+        position: sticky;
+        left: 0;
+        background: var(--light-gray);
+        z-index: 1;
+    }
+}

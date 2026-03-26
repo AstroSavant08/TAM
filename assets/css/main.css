@@ -5,7 +5,7 @@
     --primary-blue: #0d47a1;
     --primary-blue-dark: #003366;
     --primary-blue-light: #5472d3;
-    --secondary-red: #0d47a1;
+    --secondary-red: #f44336;
     --secondary-red-dark: #c62828;
     --accent-green: #4CAF50;
     --accent-green-dark: #388E3C;
@@ -21,6 +21,8 @@
     --border-color-dark: #999;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --shadow-color-dark: rgba(0, 0, 0, 0.2);
+    --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+    --shadow-hover: 0 5px 15px rgba(0,0,0,0.2);
     
     --spacing-xs: 5px;
     --spacing-sm: 10px;
@@ -51,6 +53,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* ===== QUITAR SUBRAYADO DE TODOS LOS ENLACES ===== */
+a {
+    text-decoration: none;
 }
 
 html {
@@ -135,7 +142,45 @@ main h2 {
 }
 
 /* ======================================================
-   FOOTER
+   BOTONES GLOBALES
+====================================================== */
+.btn-primary,
+.btn-danger {
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all var(--transition-normal);
+    border: none;
+    color: white;
+}
+
+.btn-primary {
+    background: var(--primary-blue);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+    background: var(--primary-blue-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-danger {
+    background: var(--secondary-red);
+}
+
+.btn-danger:hover {
+    background: var(--secondary-red-dark);
+    transform: translateY(-2px);
+}
+
+/* ======================================================
+   FOOTER SIMPLE (alternativa)
 ====================================================== */
 .footer {
     background-color: var(--primary-blue);
