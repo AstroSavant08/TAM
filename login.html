@@ -1,17 +1,27 @@
-<!-- e:\proyecto_de_tam_acosta\proyecto de tam acosta\acosta\login.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - TAM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fuentes + iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/pages/login.css">
 </head>
 <body class="login-body">
+    <!-- HEADER GLOBAL (oculto en login) -->
+    <div id="header" style="display: none;"></div>
+
     <div class="login-card">
         <div class="login-header">
-            <img src="vistas_pedidos/uploads/logo.png" alt="TAM Logo" onerror="this.src='https://via.placeholder.com/120x50/0d47a1/ffffff?text=TAM'" style="max-height: 50px; background: #0d47a1; padding: 5px; border-radius: 4px;">
+            <img src="vistas_pedidos/uploads/logo.png" alt="TAM Logo" onerror="this.src='https://via.placeholder.com/120x50/0d47a1/ffffff?text=TAM'">
         </div>
         
         <div class="login-tabs">
@@ -32,7 +42,7 @@
             <button type="submit" class="btn-block">Ingresar</button>
             <a href="forgot_password.html" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
             <button type="button" class="btn-block guest-btn" onclick="enterAsGuest()">Entrar como invitado</button>
-            <p id="loginMessage" class="message error"></p>
+            <div id="loginMessage" class="message error"></div>
         </form>
 
         <!-- Formulario de Registro -->
@@ -62,26 +72,28 @@
                 <input type="password" id="regPass" required placeholder="Elige una contraseña">
             </div>
             <button type="submit" class="btn-block">Registrarse</button>
-            <p id="regMessage" class="message success"></p>
+            <div id="regMessage" class="message success"></div>
         </form>
     </div>
 
     <script>
-        // VERIFICACIÓN DE SERVIDOR: Detectar si se abre como archivo local
+        // No cargar header en login
+        document.getElementById('header').style.display = 'none';
+        
+        // VERIFICACIÓN DE SERVIDOR
         function showFileProtocolWarning() {
             const msg = document.getElementById('loginMessage');
             if (msg) {
                 msg.className = 'message error';
                 msg.textContent = 'ERROR: estás usando file://. Mueve el proyecto a htdocs y accede vía http://localhost/...';
-            } else {
-                alert("¡ERROR CRÍTICO!\n\nEstás abriendo el archivo directamente (file://).\nPHP y la Base de Datos NO funcionarán así.\n\nSOLUCIÓN:\n1. Mueve tu carpeta de proyecto dentro de 'htdocs' en XAMPP.\n2. Abre el navegador y entra a: http://localhost/tu_carpeta/login.html");
+                msg.style.display = 'block';
             }
         }
         if (window.location.protocol === 'file:') {
             showFileProtocolWarning();
         }
 
-        // Verificar si ya está logueado en localStorage
+        // Verificar si ya está logueado
         window.addEventListener('load', function() {
             if (localStorage.getItem('isLoggedIn') === 'true') {
                 window.location.href = 'index.html';
@@ -100,8 +112,10 @@
                 document.getElementById('registerForm').classList.add('active');
             }
             // Limpiar mensajes
-            document.getElementById('loginMessage').textContent = '';
-            document.getElementById('regMessage').textContent = '';
+            const loginMsg = document.getElementById('loginMessage');
+            const regMsg = document.getElementById('regMessage');
+            if (loginMsg) loginMsg.style.display = 'none';
+            if (regMsg) regMsg.style.display = 'none';
         }
 
         function enterAsGuest() {
@@ -110,11 +124,10 @@
             window.location.href = 'index.html';
         }
 
-        // Lógica de Registro
+        // Registro
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Recopilar todos los datos del formulario
             const data = {
                 nombre: document.getElementById('regNombre').value.trim(),
                 identificacion: document.getElementById('regId').value.trim(),
@@ -129,23 +142,20 @@
             if (!data.username || !data.password || !data.nombre || !data.identificacion) {
                 msg.className = 'message error';
                 msg.textContent = 'Por favor completa todos los campos.';
+                msg.style.display = 'block';
                 return;
             }
 
-            // Enviar datos al backend PHP
             fetch('backend/register_backend.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            .then(response => response.text()) // Obtener texto primero para depurar errores de PHP
+            .then(response => response.text())
             .then(text => {
-                console.log('Respuesta cruda del servidor:', text);
                 try {
                     return JSON.parse(text);
                 } catch (e) {
-                    console.error("Respuesta del servidor no es JSON: ", text);
-                    // incluir el texto en el mensaje de error también
                     throw new Error("Error en el servidor: " + text);
                 }
             })
@@ -153,29 +163,28 @@
                 if (data.success) {
                     msg.className = 'message success';
                     msg.textContent = '¡Registro exitoso! Redirigiendo...';
-                    // guardar sesión automáticamente
+                    msg.style.display = 'block';
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('userName', data.username || data.nombre || 'Usuario');
                     setTimeout(() => { window.location.href = 'index.html'; }, 1500);
                 } else {
                     msg.className = 'message error';
                     msg.textContent = data.message;
+                    msg.style.display = 'block';
                 }
             })
             .catch(error => {
-                console.error('Registro fetch error:', error);
                 msg.className = 'message error';
                 let text = error.message || 'Error de conexión o servidor.';
                 if (window.location.protocol === 'file:') {
                     text += ' (asegúrate de usar http://localhost)';
                 }
                 msg.textContent = text;
+                msg.style.display = 'block';
             });
         });
 
-        // Lógica de Login
-
-        // Lógica de Login
+        // Login
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const user = document.getElementById('loginUser').value.trim();
@@ -186,15 +195,14 @@
             if (!user || !pass) {
                 msg.className = 'message error';
                 msg.textContent = 'Por favor completa todos los campos';
+                msg.style.display = 'block';
                 return;
             }
             
-            // Mostrar estado de carga
             btn.disabled = true;
             btn.textContent = 'Iniciando sesión...';
-            msg.textContent = '';
+            msg.style.display = 'none';
 
-            // Enviar solicitud de login (usar backend real)
             fetch('backend/login_backend.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -202,11 +210,9 @@
             })
             .then(response => response.text())
             .then(text => {
-                console.log('Login raw response:', text);
                 try {
                     return JSON.parse(text);
                 } catch (e) {
-                    console.error("Respuesta del servidor no es JSON:", text);
                     throw new Error("La respuesta del servidor no es válida: " + text);
                 }
             })
@@ -214,31 +220,31 @@
                 if (data.success) {
                     msg.className = 'message success';
                     msg.textContent = '¡Bienvenido! Redirigiendo...';
+                    msg.style.display = 'block';
                     
-                    // Guardar en localStorage
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('userName', user);
                     localStorage.setItem('userId', data.id);
                     
-                    // Redirigir tras 1 segundo
                     setTimeout(() => {
                         window.location.href = 'index.html';
                     }, 1000);
                 } else {
                     msg.className = 'message error';
                     msg.textContent = data.message || 'Error de autenticación';
+                    msg.style.display = 'block';
                     btn.disabled = false;
                     btn.textContent = 'Ingresar';
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
                 msg.className = 'message error';
                 let text = 'Error: ' + (error.message || 'No se pudo conectar con el servidor');
                 if (window.location.protocol === 'file:') {
                     text += ' (asegúrate de usar http://localhost)';
                 }
                 msg.textContent = text;
+                msg.style.display = 'block';
                 btn.disabled = false;
                 btn.textContent = 'Ingresar';
             });

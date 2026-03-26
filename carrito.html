@@ -10,248 +10,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <!-- CSS externo -->
-    <link rel="stylesheet" href="styles.css">
-    
-    <style>
-        .cart-container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 20px;
-        }
-        .cart-header h1 {
-            color: #0d47a1;
-            font-size: 2rem;
-        }
-        .cart-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-        .cart-items {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .cart-item {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-            align-items: center;
-        }
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        .cart-item-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 8px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        .cart-item-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .cart-item-details {
-            flex: 1;
-        }
-        .cart-item-name {
-            font-weight: 600;
-            color: #333;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-        .cart-item-price {
-            color: #f44336;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-        .cart-item-quantity {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .qty-btn {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #ddd;
-            background: white;
-            cursor: pointer;
-            border-radius: 4px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .qty-btn:hover {
-            background: #f0f0f0;
-        }
-        .qty-input {
-            width: 50px;
-            text-align: center;
-            border: 1px solid #ddd;
-            padding: 5px;
-            border-radius: 4px;
-        }
-        .remove-btn {
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-        .remove-btn:hover {
-            background: #d32f2f;
-        }
-        .cart-summary {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            color: #666;
-        }
-        .summary-item.total {
-            border-top: 2px solid #ddd;
-            padding-top: 15px;
-            font-weight: 700;
-            color: #0d47a1;
-            font-size: 1.2rem;
-        }
-        .checkout-btn {
-            width: 100%;
-            padding: 15px;
-            background: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background 0.3s;
-        }
-        .checkout-btn:hover {
-            background: #45a049;
-        }
-        .checkout-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-        .continue-shopping {
-            width: 100%;
-            padding: 12px;
-            background: #0d47a1;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.3s;
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-        }
-        .continue-shopping:hover {
-            background: #0a3a7f;
-        }
-        .empty-cart {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        .empty-cart i {
-            font-size: 100px;
-            color: #ddd;
-            margin-bottom: 20px;
-        }
-        .empty-cart h2 {
-            color: #666;
-            margin-bottom: 20px;
-        }
-        @media (max-width: 900px) {
-            .cart-content {
-                grid-template-columns: 1fr;
-            }
-            .cart-summary {
-                position: static;
-            }
-            .cart-item {
-                flex-direction: column;
-            }
-            .cart-item-image {
-                width: 100%;
-                height: 200px;
-            }
-        }
-    </style>
+   <link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/header.css"> 
+<link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="/assets/pages/carrito.css">
+
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
-        
-        <div class="logo">
-            <a href="index.html" style="display: flex; align-items: center; text-decoration: none; cursor: pointer;">
-                <img src="vistas_pedidos/uploads/logo.png" alt="TAM" onerror="this.src='https://via.placeholder.com/140x42/0d47a1/ffffff?text=TAM'">
-            </a>
-        </div>
-        
-        <div class="menu" id="menuToggle2">
-            <i class="fas fa-bars"></i>
-            <span>MENÚ</span>
-        </div>
-        <div class="menu-dropdown" id="menuDropdown">
-            <a href="PROJECT/PROJECT/catalogo.html?cat=consolas"><i class="fas fa-gamepad"></i> Consolas</a>
-            <a href="PROJECT/PROJECT/catalogo.html?cat=portatiles"><i class="fas fa-laptop"></i> Laptops</a>
-            <a href="PROJECT/PROJECT/catalogo.html?cat=celulares"><i class="fas fa-mobile-alt"></i> Celulares</a>
-            <a href="PROJECT/PROJECT/catalogo.html?cat=accesorios"><i class="fas fa-headphones"></i> Accesorios</a>
-        </div>
-        
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Buscar productos...">
-            <button id="searchButton">
-                <svg viewBox="0 0 24 24">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-            </button>
-        </div>
-        
-        <nav class="main-nav">
-            <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>Inicio</span></a>
-            <a href="PROJECT/PROJECT/catalogo.html" class="nav-link"><i class="fas fa-th-large"></i><span>Catálogo</span></a>
-            <a href="comparador.html" class="nav-link"><i class="fas fa-balance-scale"></i><span>Comparador</span></a>
-            <a href="carrito.html" class="nav-link active"><i class="fas fa-shopping-cart"></i><span>Carrito</span><span id="navCartCount" class="nav-cart-count">0</span></a>
-            <a href="contacto.html" class="nav-link"><i class="fas fa-phone"></i><span>Contacto</span></a>
-        </nav>
-        
-        <div class="user-icons">
-            <svg id="userIcon" onclick="logout()" title="Cerrar sesión" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
-        </div>
-    </header>
+    <!-- HEADER GLOBAL - Se carga dinámicamente desde components/header.html -->
+    <div id="header"></div>
 
     <main>
         <div class="cart-container">
@@ -299,97 +66,93 @@
         </div>
     </footer>
 
-    <!-- Modal de Checkout -->
-    <div id="checkout-modal" class="checkout-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
-        <div class="checkout-modal-content" style="background: white; border-radius: 12px; padding: 30px; max-width: 500px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.2); position: relative;">
-            <button id="close-checkout-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 28px; cursor: pointer; color: #666;">
+    <!-- MODAL DE CHECKOUT - Confirmación de compra exitosa -->
+    <div id="checkout-modal" style="display: none;">
+        <div class="checkout-modal-content">
+            <button id="close-checkout-modal" class="close-checkout-modal">
                 <i class="fas fa-times"></i>
             </button>
             
-            <div class="checkout-modal-header" style="text-align: center; margin-bottom: 30px;">
-                <h3 style="color: #4caf50; margin: 0;"><i class="fas fa-check-circle"></i> ¡Compra Exitosa!</h3>
+            <div class="checkout-modal-header">
+                <h3>
+                    <i class="fas fa-check-circle"></i> 
+                    ¡Compra Exitosa!
+                </h3>
             </div>
             
-            <div class="checkout-modal-body" style="text-align: center;">
-                <i class="fas fa-check-circle" style="font-size: 60px; color: #4caf50; margin-bottom: 20px;"></i>
-                <h2 style="color: #333; margin: 10px 0;">¡Gracias por tu compra!</h2>
-                <p style="color: #666; margin-bottom: 30px;">Tu pedido ha sido procesado exitosamente. Recibirás un correo con los detalles de tu compra.</p>
+            <div class="checkout-modal-body">
+                <i class="fas fa-check-circle"></i>
                 
-                <div class="order-details" style="background: #f9f9f9; padding: 20px; border-radius: 8px; text-align: left; margin-bottom: 20px;">
-                    <p style="margin: 10px 0;"><strong>Número de pedido:</strong> #<span id="order-number">001</span></p>
-                    <p style="margin: 10px 0;"><strong>Subtotal:</strong> <span id="order-subtotal">$0</span></p>
-                    <p style="margin: 10px 0;"><strong>Envío:</strong> <span id="order-shipping">Gratis</span></p>
-                    <p style="margin: 10px 0; border-top: 2px solid #ddd; padding-top: 10px;"><strong>Total pagado:</strong> <span id="order-total" style="color: #f44336; font-size: 1.3rem; font-weight: 700;">$0</span></p>
+                <h2>¡Gracias por tu compra!</h2>
+                
+                <p>Tu pedido ha sido procesado exitosamente. Recibirás un correo con los detalles de tu compra.</p>
+                
+                <div class="order-details">
+                    <p>
+                        <strong>Número de pedido:</strong> 
+                        #<span id="order-number">001</span>
+                    </p>
+                    <p>
+                        <strong>Subtotal:</strong> 
+                        <span id="order-subtotal">$0</span>
+                    </p>
+                    <p>
+                        <strong>Envío:</strong> 
+                        <span id="order-shipping">Gratis</span>
+                    </p>
+                    <p>
+                        <strong>Total pagado:</strong> 
+                        <span id="order-total" class="order-total">$0</span>
+                    </p>
                 </div>
                 
-                <button id="continue-shopping-checkout" class="apply-filters-btn" style="width: 100%; padding: 12px 20px; background: #0d47a1; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
-                    <i class="fas fa-shopping-bag"></i> Continuar Comprando
+                <button id="continue-shopping-checkout" class="continue-shopping-checkout">
+                    <i class="fas fa-shopping-bag"></i> 
+                    Continuar Comprando
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal de Pago -->
-    <div id="payment-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 999; flex-direction: column; gap: 20px;">
-        <div style="background: white; border-radius: 12px; padding: 30px; max-width: 500px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
-            <h2 style="color: #0d47a1; text-align: center; margin-top: 0;">Selecciona Método de Pago</h2>
+    <!-- MODAL DE PAGO -->
+    <div id="payment-modal" style="display: none;">
+        <div class="payment-modal-content">
+            <h2>Selecciona Método de Pago</h2>
             
-            <div style="display: flex; flex-direction: column; gap: 15px; margin: 30px 0;">
-                <button id="mercadopago-btn" style="padding: 15px 20px; background: #3483FA; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s;">
+            <div class="payment-buttons">
+                <button id="mercadopago-btn" class="payment-btn mercadopago">
                     <i class="fas fa-wallet"></i> Pagar con MercadoPago
                 </button>
                 
-                <button id="pse-btn" style="padding: 15px 20px; background: #4CAF50; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s;">
+                <button id="pse-btn" class="payment-btn pse">
                     <i class="fas fa-university"></i> Pagar por PSE
                 </button>
                 
-                <button id="card-btn" style="padding: 15px 20px; background: #FF6B6B; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s;">
+                <button id="card-btn" class="payment-btn card">
                     <i class="fas fa-credit-card"></i> Pagar con Tarjeta
                 </button>
             </div>
             
-            <button id="cancel-payment" style="width: 100%; padding: 12px 20px; background: #f0f0f0; color: #666; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+            <button id="cancel-payment" class="cancel-payment">
                 Cancelar
             </button>
         </div>
     </div>
 
-    </footer>
+    <!-- IMPLEMENTACIÓN HEADER -->
+    <script>
+        fetch("../components/header.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("header").innerHTML = data;
+            });
+    </script>
 
     <script>
         // ============================================
         // CARRITO INDEPENDIENTE
         // ============================================
-        // Si el usuario está en modo invitado o no ha iniciado sesión, redirigir o informar
-        const loginState = localStorage.getItem('isLoggedIn');
-        if (loginState === 'guest' || loginState !== 'true') {
-            alert('Debe iniciar sesión con una cuenta para acceder al carrito.');
-            window.location.href = 'login.html';
-        }
         
-        // toggle menú con categorías (para este archivo también)
-        const carritoBtns = [];
-        const cartBtn2 = document.getElementById('menuToggle2');
-        const cartBtn1 = document.getElementById('menuToggle');
-        if (cartBtn2) carritoBtns.push(cartBtn2);
-        if (cartBtn1 && cartBtn1 !== cartBtn2) carritoBtns.push(cartBtn1);
-        const carritoMenuDropdown = document.getElementById('menuDropdown');
-        if (carritoBtns.length && carritoMenuDropdown) {
-            carritoBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    btn.classList.toggle('open');
-                    carritoMenuDropdown.style.display = btn.classList.contains('open') ? 'block' : 'none';
-                });
-            });
-            document.addEventListener('click', (evt) => {
-                if (!carritoBtns.some(b => b.contains(evt.target)) && !carritoMenuDropdown.contains(evt.target)) {
-                    carritoBtns.forEach(b => b.classList.remove('open'));
-                    carritoMenuDropdown.style.display = 'none';
-                }
-            });
-        }
-
         // Productos de referencia (para obtener información)
         const productDatabase = {
             'nintendo-switch-2': { name: 'Nintendo Switch 2 + Mario Kart', price: 1499900, image: 'imagenes/nintendo.png' },
@@ -527,17 +290,13 @@
                 return;
             }
             
-            // Simular usuario actual (en una app real, esto vendría del servidor)
             const currentUser = JSON.parse(localStorage.getItem('tamCurrentUser')) || {
                 id: 'guest-' + Date.now(),
                 name: 'Usuario',
                 email: 'usuario@example.com'
             };
             
-            // Guardar usuario temporal
             localStorage.setItem('tamCurrentUser', JSON.stringify(currentUser));
-            
-            // Mostrar modal de pago
             document.getElementById('payment-modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -545,7 +304,6 @@
         // Procesar pago
         function processCheckout() {
             const cart = JSON.parse(localStorage.getItem('tamCart')) || [];
-            const currentUser = JSON.parse(localStorage.getItem('tamCurrentUser')) || {};
             
             if (cart.length === 0) {
                 alert('Tu carrito está vacío');
@@ -560,10 +318,8 @@
             const envio = subtotal > 200000 ? 0 : 30000;
             const total = subtotal + envio;
             
-            // Crear número de orden único
             const orderNumber = 'TAM-' + Date.now().toString().slice(-6);
             
-            // Mostrar modal de confirmación
             document.getElementById('order-number').textContent = orderNumber;
             document.getElementById('order-total').textContent = '$' + total.toLocaleString('es-CO');
             document.getElementById('order-subtotal').textContent = '$' + subtotal.toLocaleString('es-CO');
@@ -572,34 +328,27 @@
             document.getElementById('checkout-modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
             
-            // Limpiar carrito
             localStorage.setItem('tamCart', JSON.stringify([]));
             updateCartCount();
             renderCart();
-            
-            // Cerrar modal de pago
             document.getElementById('payment-modal').style.display = 'none';
         }
         
-        // Pago con MercadoPago
         function processMercadoPagoPayment() {
             alert('🔄 Procesando pago con MercadoPago...\n\nEn producción se integraría la API de MercadoPago');
             processCheckout();
         }
         
-        // Pago por PSE
         function processPSEPayment() {
             alert('🏦 Redirigiendo a PSE...\n\nEn producción se integraría con el sistema PSE bancario');
             processCheckout();
         }
         
-        // Pago con Tarjeta
         function processCardPayment() {
             alert('💳 Procesando pago con Tarjeta...\n\nEn producción se usaría un gateway como Stripe o similar');
             processCheckout();
         }
 
-        // Logout
         function logout() {
             if (confirm('¿Cerrar sesión?')) {
                 localStorage.removeItem('currentUser');
@@ -612,27 +361,38 @@
             updateCartCount();
             renderCart();
             
-            // Event listeners para modal de pago
-            document.getElementById('mercadopago-btn').addEventListener('click', processMercadoPagoPayment);
-            document.getElementById('pse-btn').addEventListener('click', processPSEPayment);
-            document.getElementById('card-btn').addEventListener('click', processCardPayment);
+            const mercadoPagoBtn = document.getElementById('mercadopago-btn');
+            const pseBtn = document.getElementById('pse-btn');
+            const cardBtn = document.getElementById('card-btn');
+            const cancelPayment = document.getElementById('cancel-payment');
+            const closeCheckout = document.getElementById('close-checkout-modal');
+            const continueShopping = document.getElementById('continue-shopping-checkout');
             
-            document.getElementById('cancel-payment').addEventListener('click', () => {
-                document.getElementById('payment-modal').style.display = 'none';
-                document.body.style.overflow = '';
-            });
+            if (mercadoPagoBtn) mercadoPagoBtn.addEventListener('click', processMercadoPagoPayment);
+            if (pseBtn) pseBtn.addEventListener('click', processPSEPayment);
+            if (cardBtn) cardBtn.addEventListener('click', processCardPayment);
             
-            // Event listeners para modal de checkout
-            document.getElementById('close-checkout-modal').addEventListener('click', () => {
-                document.getElementById('checkout-modal').style.display = 'none';
-                document.body.style.overflow = '';
-            });
+            if (cancelPayment) {
+                cancelPayment.addEventListener('click', () => {
+                    document.getElementById('payment-modal').style.display = 'none';
+                    document.body.style.overflow = '';
+                });
+            }
             
-            document.getElementById('continue-shopping-checkout').addEventListener('click', () => {
-                document.getElementById('checkout-modal').style.display = 'none';
-                document.body.style.overflow = '';
-                window.location.href = 'PROJECT/PROJECT/catalogo.html';
-            });
+            if (closeCheckout) {
+                closeCheckout.addEventListener('click', () => {
+                    document.getElementById('checkout-modal').style.display = 'none';
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            if (continueShopping) {
+                continueShopping.addEventListener('click', () => {
+                    document.getElementById('checkout-modal').style.display = 'none';
+                    document.body.style.overflow = '';
+                    window.location.href = 'PROJECT/PROJECT/catalogo.html';
+                });
+            }
         });
     </script>
 </body>
