@@ -5,14 +5,14 @@
     <script>
         // VERIFICACIÓN DE SESIÓN
         (function checkSession() {
-            fetch('../backend/check_session.php')
+            fetch('../../backend/check_session.php')
                 .then(res => {
                     if (!res.ok) throw new Error('Error de red');
                     return res.json();
                 })
                 .then(data => {
                     if (!data.loggedIn) {
-                        window.location.href = '../login.html';
+                        window.location.href = 'login.html';
                     }
                 })
                 .catch(err => {
@@ -645,7 +645,7 @@
     <header class="header">
         <div class="logo">
             <a href="index.html" style="display: flex; align-items: center; text-decoration: none; cursor: pointer;">
-                <img src="vistas_pedidos/uploads/logo.png" alt="Logo TAM" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNDIiPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNDIiIGZpbGw9IiMwZDQ3YTEiLz48dGV4dCB4PSIxMCIgeT0iMjgiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgZmlsbD0id2hpdGUiPlRBTTwvdGV4dD48L3N2Zz4='">
+                <img src="../../vistas_pedidos/uploads/logo.png" alt="Logo TAM" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNDIiPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNDIiIGZpbGw9IiMwZDQ3YTEiLz48dGV4dCB4PSIxMCIgeT0iMjgiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgZmlsbD0id2hpdGUiPlRBTTwvdGV4dD48L3N2Zz4='">
             </a>
         </div>
 
@@ -654,10 +654,10 @@
             <span>MENÚ</span>
         </div>
         <div class="menu-dropdown" id="menuDropdown">
-            <a href="PROJECT/PROJECT/catalogo.html?cat=consolas"><i class="fas fa-gamepad"></i> Consolas</a>
-            <a href="PROJECT/PROJECT/catalogo.html?cat=portatiles"><i class="fas fa-laptop"></i> Laptops</a>
-            <a href="PROJECT/PROJECT/catalogo.html?cat=celulares"><i class="fas fa-mobile-alt"></i> Celulares</a>
-            <a href="PROJECT/PROJECT/catalogo.html?cat=accesorios"><i class="fas fa-headphones"></i> Accesorios</a>
+            <a href="catalogo.html?cat=consolas"><i class="fas fa-gamepad"></i> Consolas</a>
+            <a href="catalogo.html?cat=portatiles"><i class="fas fa-laptop"></i> Laptops</a>
+            <a href="catalogo.html?cat=celulares"><i class="fas fa-mobile-alt"></i> Celulares</a>
+            <a href="catalogo.html?cat=accesorios"><i class="fas fa-headphones"></i> Accesorios</a>
         </div>
 
         <div class="search-bar">
@@ -669,7 +669,7 @@
 
         <nav class="main-nav">
             <a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>Inicio</span></a>
-            <a href="PROJECT/PROJECT/catalogo.html" class="nav-link"><i class="fas fa-th-large"></i><span>Catálogo</span></a>
+            <a href="catalogo.html" class="nav-link"><i class="fas fa-th-large"></i><span>Catálogo</span></a>
             <a href="comparador.html" class="nav-link active"><i class="fas fa-balance-scale"></i><span>Comparador</span></a>
             <a href="carrito.html" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Carrito</span><span id="navCartCount" class="nav-cart-count">0</span></a>
             <a href="contacto.html" class="nav-link"><i class="fas fa-phone"></i><span>Contacto</span></a>
@@ -739,7 +739,7 @@
     <div id="toast" class="toast"></div>
 
     <!-- ahora también cargamos el script global para utilidades comunes -->
-    <script src="script.js"></script>
+    <script src="../../script.js"></script>
     <script>
         // resalta enlace activo —el global ya lo hace también pero dejamos aquí como respaldo
         (function() {
