@@ -10,6 +10,7 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<<<<<<<< HEAD:frontend/pages/catalogo.html
 
     <!-- Incluir estilos del header -->
 <link rel="stylesheet" href="../../PROJECT/PROJECT/header.css">
@@ -94,6 +95,18 @@
             </svg>
         </div>
     </header>
+========
+    
+    <!-- CSS externo -->
+     <link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/header.css"> 
+<link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="/assets/pages/catalogo.css">
+</head>
+<body>
+    <!-- HEADER GLOBAL - Se carga dinámicamente -->
+    <div id="header"></div>
+>>>>>>>> origin/organizacion-css-yeraldin:catalogo.html
 
     <!-- CATEGORÍAS -->
     <div class="category-nav-wrapper">
@@ -705,10 +718,23 @@
     <!-- Toast Notification -->
     <div id="toast-notification" class="toast-notification"></div>
 
+    <!-- IMPLEMENTACIÓN HEADER -->
+    <script>
+        fetch("../components/header.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("header").innerHTML = data;
+            });
+    </script>
+
     <!-- ARCHIVO JAVASCRIPT EXTERNO -->
+<<<<<<<< HEAD:frontend/pages/catalogo.html
     <script src="../../PROJECT/PROJECT/catalogo.js"></script>
     <!-- include global utilities (carousel, dropdown etc.) -->
+========
+    <script src="catalogo/project/catalogo.js"></script>
+>>>>>>>> origin/organizacion-css-yeraldin:catalogo.html
     <script src="../../script.js"></script>
 
 </body>
-</html
+</html>
